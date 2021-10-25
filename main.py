@@ -37,7 +37,7 @@ class ContractCalc(QDialog):
         self.setLayout(self.layout)
 
     def submitdata(self):
-        handler = PriceRequestHandler(21815)
+        handler = PriceRequestHandler(30747)
         self.amount = handler.getprice()
         print(self.amount)
 
