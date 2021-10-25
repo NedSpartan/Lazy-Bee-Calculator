@@ -3,8 +3,12 @@ import csv
 
 
 class PriceRequestHandler:
-    BLUE_BOOKS = ['Sleeper Data Library', 'Neural Network Analyzer', 'Ancient Coordinates Database',
-                  'Sleeper Drone AI Nexus']
+    BLUE_BOOKS = {
+        'Sleeper Drone AI Nexus': 30747,
+        'Sleeper Data Library': 30745,
+        'Neural Network Analyzer': 30744,
+        'Ancient Coordinates Database': 30746,
+    }
 
     def __init__(self, typeid):
         self.type_id = typeid
