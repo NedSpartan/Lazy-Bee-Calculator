@@ -39,6 +39,10 @@ class ContractCalc(QDialog):
     def submitdata(self):
         handler = PriceRequestHandler(30747)
         self.amount = handler.getprice()
+        # Test to see if it works
+        print(self.items)
+        print(handler.AcceptableItemsList.keys())
+        handler.checkifbluebook(self.items)
         print(self.amount)
 
 
