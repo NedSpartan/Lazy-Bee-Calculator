@@ -20,6 +20,7 @@ class PriceRequestHandler:
 
     """Requests the max buy price from an item"""
     def getprice(self):
+
         response = requests.get(f'{self.URL}')
         jsonresponse = response.json()
 
@@ -27,13 +28,21 @@ class PriceRequestHandler:
 
         return price
 
+    """Gets the type id of the items"""
+    def gettypeid(self, items):
+
+        pass
+
     def checkifbluebook(self, items):
 
         """Checks if items in clipboard are sleeper cache loot"""
         if items not in self.AcceptableItemsList.keys():
-            print('No')
+
+            return False
+
         elif items in self.AcceptableItemsList.keys():
-            print('yes')
+
+            return True
 
 
 if __name__ == '__main__':
