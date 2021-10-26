@@ -4,17 +4,32 @@ from PyQt5.QtWidgets import *
 
 sys.path.append(".")
 
+MEMBER_TIERS = ['Trial Member', 'Full Member', 'Public Guest']
+
 
 class ContractCalc(QDialog):
 
     # noinspection PyArgumentList
     def __init__(self, parent=None):
+
         super(ContractCalc, self).__init__(parent)
 
         # Window title setter
         self.setWindowTitle('Lazy Bee Calculator')
 
-        self.amount = ''
+        self.amount = int
+
+        # Set up for member tier list & Level
+        self.tierList = QComboBox()
+        self.tierList.addItem(MEMBER_TIERS[0])
+        self.tierList.addItem(MEMBER_TIERS[1])
+        self.tierList.addItem(MEMBER_TIERS[2])
+
+        # Membership level
+        self.membershipLevel = str
+
+        # Tax level
+        self.taxLevel = int
 
         # Set up to accept user input to be appraised
         self.itemsLabel = QLabel('Items: ')
@@ -28,22 +43,32 @@ class ContractCalc(QDialog):
 
         # Main layout
         self.layout = QVBoxLayout()
+        self.layout.addWidget(self.tierList)
         self.layout.addWidget(self.itemsLabel)
         self.layout.addWidget(self.items)
-        self.layout.addWidget(self.contractTotalLabel)
         self.layout.addWidget(self.submit)
 
         # Layout setter
         self.setLayout(self.layout)
 
     def submitdata(self):
+
         handler = PriceRequestHandler(30747)
         self.amount = handler.getprice()
         # Test to see if it works
-        print(self.items)
-        print(handler.AcceptableItemsList.keys())
-        handler.checkifbluebook(self.items)
+        print(self.items.toPlainText())
+        handler.checkifbluebook(self.items.toPlainText())
         print(self.amount)
+
+    def calculatetax(self):
+
+        if self.membershipLevel == 'Trial Member' or 'Full Member':
+
+            self.taxLevel = 0.85
+
+        elif self.membershipLevel == 'Public Guest':
+
+            self.taxLevel = 0.75
 
 
 if __name__ == '__main__':
