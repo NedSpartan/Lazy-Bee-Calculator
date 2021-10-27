@@ -20,6 +20,7 @@ class PriceRequestHandler:
 
     """Requests the max buy price from an item"""
     def getprice(self):
+
         response = requests.get(f'{self.URL}')
         jsonresponse = response.json()
 
@@ -36,9 +37,11 @@ class PriceRequestHandler:
 
         """Checks if items in clipboard are sleeper cache loot"""
         if items not in self.AcceptableItemsList.keys():
+
             return False
 
         elif items in self.AcceptableItemsList.keys():
+
             return True
 
 
