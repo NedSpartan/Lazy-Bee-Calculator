@@ -66,6 +66,7 @@ class ContractCalc(QDialog):
         data = self.items.toPlainText()
         items = data.split('\n')
         self.listOfItems = items
+        #Test to see if it works
         print(self.listOfItems)
 
     def calculatetax(self):
