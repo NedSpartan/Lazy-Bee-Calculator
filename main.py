@@ -13,40 +13,37 @@ class ContractCalc(QDialog):
 
         super(ContractCalc, self).__init__(parent)
 
-        # Window title setter
+        """Sets title of the app"""
         self.setWindowTitle('Lazy Bee Calculator')
 
         """Total amount to then have the tax bracket level deducted from it"""
         self.amount = int
 
-        # Set up for member tier list & Level
+        """Membership tax level bracket selector for dropdown menu"""
         self.tierList = QComboBox()
         self.tierList.addItem(MEMBER_TIERS[0])
         self.tierList.addItem(MEMBER_TIERS[1])
         self.tierList.addItem(MEMBER_TIERS[2])
+        self.tierList.activated.connect(self.settax)
 
         """Final contract amount that will be automatically copied to clipboard"""
         self.contractAmount = int
-
-        """Variable to store the current Membership level for tax purposes, it is expected that the variable will 
-        always be a string """
-        self.membershipLevel = str
 
         """Variable to store the tax level from the current membership level, it is expected that this will always be a
         integer as it will be what will be used to calculate at what tax bracket the contract will be"""
         self.taxLevel = int
 
-        # Set up to accept user input to be appraised
+        """GUI Representation of the user input area"""
         self.itemsLabel = QLabel('Items: ')
         self.items = QPlainTextEdit()
 
-        # list of items separated from the items QPlainTextEdit object
-        self.listOfItems = []
+        """List of items copied from user input"""
+        self.listOfItems = list
 
         self.items.setPlaceholderText('  Put stuff to appraise here \n \n # Protip: Ctrl+a, Ctrl+c, Ctrl+v')
         self.contractTotalLabel = QLabel(f'Total contract amount: {self.amount}')
 
-        # Push Button to submit the query
+        """Push button to submit data for query"""
         self.submit = QPushButton('Submit')
         self.submit.clicked.connect(self.submitdata)
 
@@ -57,27 +54,44 @@ class ContractCalc(QDialog):
         self.layout.addWidget(self.items)
         self.layout.addWidget(self.submit)
 
-        # Layout setter
+        """Sets GUI layout"""
         self.setLayout(self.layout)
 
-    """Grabs the user input from items QPlainTextEdit Object"""
+    """Grabs the user input from items QPlainTextEdit Object once the submit button is clicked"""
+
     def submitdata(self):
 
         data = self.items.toPlainText()
         items = data.split('\n')
         self.listOfItems = items
-        #Test to see if it works
+
+        # Test to see if it works, this has to be removed.
         print(self.listOfItems)
 
-    def calculatetax(self):
+    """Calculates the appropriate level of tax"""
 
-        if self.membershipLevel == 'Trial Member' or 'Full Member':
+    def settax(self):
+
+        selection = self.tierList.currentText()
+
+        if selection.lower() == 'Trial Member'.lower():
 
             self.taxLevel = 0.85
 
-        elif self.membershipLevel == 'Public Guest':
+        elif selection.lower() == 'Public Guest'.lower():
 
             self.taxLevel = 0.75
+
+        elif selection.lower() == 'Full Member'.lower():
+
+            self.taxLevel = 0.85
+            # Test to see if it works, this has to be removed.
+        print(selection)
+        print(self.taxLevel)
+
+    def fetchprice(self):
+
+        pass
 
 
 if __name__ == '__main__':
