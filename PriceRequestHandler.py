@@ -3,9 +3,9 @@ import requests
 
 class PriceRequestHandler:
 
-    def __init__(self, typeid):
+    def __init__(self):
 
-        self.type_id = typeid
+        self.type_id = int
 
         """List of acceptable items to price check"""
         self.AcceptableItemsList = {
@@ -46,5 +46,5 @@ class PriceRequestHandler:
 
 
 if __name__ == '__main__':
-    new = PriceRequestHandler(21815)
+    new = PriceRequestHandler()
     new.getprice()

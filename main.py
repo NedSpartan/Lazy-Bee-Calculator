@@ -8,7 +8,6 @@ MEMBER_TIERS = ['Trial Member', 'Full Member', 'Public Guest']
 
 class ContractCalc(QDialog):
 
-    # noinspection PyArgumentList
     def __init__(self, parent=None):
 
         super(ContractCalc, self).__init__(parent)
@@ -24,7 +23,7 @@ class ContractCalc(QDialog):
         self.tierList.addItem(MEMBER_TIERS[0])
         self.tierList.addItem(MEMBER_TIERS[1])
         self.tierList.addItem(MEMBER_TIERS[2])
-        self.tierList.activated.connect(self.settax)
+        self.tierList.activated.connect(self.set_tax)
 
         """Final contract amount that will be automatically copied to clipboard"""
         self.contractAmount = int
@@ -45,7 +44,7 @@ class ContractCalc(QDialog):
 
         """Push button to submit data for query"""
         self.submit = QPushButton('Submit')
-        self.submit.clicked.connect(self.submitdata)
+        self.submit.clicked.connect(self.submit_data)
 
         """Layout of the app. Each widget is added separately into a vertical alignment box"""
         self.layout = QVBoxLayout()
@@ -59,7 +58,7 @@ class ContractCalc(QDialog):
 
     """Grabs the user input from items QPlainTextEdit Object once the submit button is clicked"""
 
-    def submitdata(self):
+    def submit_data(self):
 
         data = self.items.toPlainText()
         items = data.split('\n')
@@ -70,7 +69,7 @@ class ContractCalc(QDialog):
 
     """Calculates the appropriate level of tax"""
 
-    def settax(self):
+    def set_tax(self):
 
         selection = self.tierList.currentText()
 
@@ -89,7 +88,11 @@ class ContractCalc(QDialog):
         print(selection)
         print(self.taxLevel)
 
-    def fetchprice(self):
+    def fetch_price(self):
+
+        pass
+
+    def set_contract_amount(self):
 
         pass
 
