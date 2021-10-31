@@ -1,4 +1,5 @@
 import sys
+import requests
 from PyQt5.QtWidgets import *
 
 sys.path.append(".")
@@ -88,17 +89,44 @@ class ContractCalc(QDialog):
         print(selection)
         print(self.taxLevel)
 
-    def fetch_price(self):
+    @staticmethod
+    def get_prices():
 
-        pass
+        blue_book_ids = [30747, 30745, 30744, 30746]
+
+        blue_book_names = ['Sleeper Drone AI Nexus', 'Sleeper Data Library', 'Neural Network Analyzer',
+                           'Ancient Coordinates Database']
+
+        current_prices = []
+
+        items = f"{blue_book_ids[0]},{blue_book_ids[1]},{blue_book_ids[2]},{blue_book_ids[3]}"
+
+        url = f'https://api.evemarketer.com/ec/marketstat/json?typeid={items}&usesystem=30002187'
+
+        response = requests.get(f'{url}')
+        json_response = response.json()
+        counter = 0
+
+        for i in json_response:
+            new_price = json_response[counter]['buy']['max']
+            current_prices.append(new_price)
+            counter += 1
+
+        print(current_prices)
+
+        return current_prices
 
     def set_contract_amount(self):
 
         pass
 
 
+ContractCalc.get_prices()
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     lbc = ContractCalc()
+    lbc.get_prices()
     lbc.show()
     sys.exit(app.exec())
