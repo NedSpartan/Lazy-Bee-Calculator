@@ -26,6 +26,9 @@ class ContractCalc(QDialog):
         self.tierList.addItem(MEMBER_TIERS[2])
         self.tierList.activated.connect(self.set_tax)
 
+        """Current Blue book prices"""
+        self.current = ContractCalc.get_prices
+
         """Final contract amount that will be automatically copied to clipboard"""
         self.contractAmount = int
 
@@ -65,7 +68,7 @@ class ContractCalc(QDialog):
         items = data.split('\n')
         self.listOfItems = items
 
-        # Test to see if it works, this has to be removed.
+        """Remove this before production"""
         print(self.listOfItems)
 
     """Calculates the appropriate level of tax"""
@@ -85,7 +88,8 @@ class ContractCalc(QDialog):
         elif selection.lower() == 'Full Member'.lower():
 
             self.taxLevel = 0.85
-            # Test to see if it works, this has to be removed.
+
+        """Remove before production"""
         print(selection)
         print(self.taxLevel)
 
@@ -107,21 +111,22 @@ class ContractCalc(QDialog):
         json_response = response.json()
         counter = 0
 
+        price_book = {}
+
         for i in json_response:
             new_price = json_response[counter]['buy']['max']
             current_prices.append(new_price)
+            price_book[f'{blue_book_names[counter]}'] = f'{current_prices[counter]}'
             counter += 1
 
-        print(current_prices)
+        """Remove before production"""
+        print(price_book)
 
-        return current_prices
+        return price_book
 
     def set_contract_amount(self):
 
         pass
-
-
-ContractCalc.get_prices()
 
 
 if __name__ == '__main__':
