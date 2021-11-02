@@ -29,7 +29,7 @@ class ContractCalc(QDialog):
         self.current = float
 
         """Final contract amount that will be automatically copied to clipboard"""
-        self.contractAmount = float
+        self.contract_amount_pre_tax = float
 
         """Variable to store the tax level from the current membership level, it is expected that this will always be a
         integer as it will be what will be used to calculate at what tax bracket the contract will be"""
@@ -95,17 +95,12 @@ class ContractCalc(QDialog):
             final_product.append(price)
             counter += 1
 
-        amount = sum(final_product)
+        self.contract_amount_pre_tax = sum(final_product)
 
         self.listOfItems = item_quantities
 
         """Remove this before production"""
-        #print(self.listOfItems)
-        print(item_quantities)
-        print(item_quantities['Sleeper Drone AI Nexus'])
-        print(current['Sleeper Drone AI Nexus'])
-        print(final_product)
-        print(amount)
+        print(self.contract_amount_pre_tax)
 
     """Calculates the appropriate level of tax"""
 
@@ -160,10 +155,6 @@ class ContractCalc(QDialog):
         print(price_book)
 
         return price_book
-
-    def set_contract_amount(self):
-
-        pass
 
 
 if __name__ == '__main__':
