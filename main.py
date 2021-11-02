@@ -58,6 +58,10 @@ class ContractCalc(QDialog):
         """Sets GUI layout"""
         self.setLayout(self.layout)
 
+    def calculate_total_price(self):
+
+        pass
+
     """Grabs the user input from items QPlainTextEdit Object once the submit button is clicked"""
 
     def submit_data(self):
@@ -73,9 +77,19 @@ class ContractCalc(QDialog):
             final_count_list.append(items[counter].split('\t'))
             counter += 1
 
+        counter = 0
+        item_quantities = {}
+
+        for i in final_count_list:
+
+            item_quantities[f'{final_count_list[counter][0]}'] = final_count_list[counter][1]
+            counter += 1
+
+        self.listOfItems = item_quantities
+
         """Remove this before production"""
         #print(self.listOfItems)
-        print(final_count_list)
+        print(item_quantities)
 
     """Calculates the appropriate level of tax"""
 
@@ -120,6 +134,7 @@ class ContractCalc(QDialog):
         price_book = {}
 
         for i in json_response:
+            
             new_price = json_response[counter]['buy']['max']
             current_prices.append(new_price)
             price_book[f'{blue_book_names[counter]}'] = f'{current_prices[counter]}'

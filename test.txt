@@ -1,0 +1,4 @@
+Ancient Coordinates Database	7
+Neural Network Analyzer	28
+Sleeper Data Library	28
+Sleeper Drone AI Nexus	3
