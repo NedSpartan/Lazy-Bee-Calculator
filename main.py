@@ -2,8 +2,6 @@ import sys
 import requests
 from PyQt5.QtWidgets import *
 
-sys.path.append(".")
-
 MEMBER_TIERS = ['Trial Member', 'Full Member', 'Public Guest']
 
 
@@ -66,10 +64,18 @@ class ContractCalc(QDialog):
 
         data = self.items.toPlainText()
         items = data.split('\n')
-        self.listOfItems = items
+        final_count_list = []
+
+        counter = 0
+        
+        for i in items:
+
+            final_count_list.append(items[counter].split('\t'))
+            counter += 1
 
         """Remove this before production"""
-        print(self.listOfItems)
+        #print(self.listOfItems)
+        print(final_count_list)
 
     """Calculates the appropriate level of tax"""
 
