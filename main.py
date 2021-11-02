@@ -26,14 +26,14 @@ class ContractCalc(QDialog):
         self.tierList.activated.connect(self.set_tax)
 
         """Current Blue book prices"""
-        self.current = ContractCalc.get_prices
+        self.current = float
 
         """Final contract amount that will be automatically copied to clipboard"""
-        self.contractAmount = int
+        self.contractAmount = float
 
         """Variable to store the tax level from the current membership level, it is expected that this will always be a
         integer as it will be what will be used to calculate at what tax bracket the contract will be"""
-        self.taxLevel = int
+        self.taxLevel = float
 
         """GUI Representation of the user input area"""
         self.itemsLabel = QLabel('Items: ')
@@ -80,17 +80,32 @@ class ContractCalc(QDialog):
 
         counter = 0
         item_quantities = {}
+        current = ContractCalc.get_prices()
 
         for i in final_count_list:
 
-            item_quantities[f'{final_count_list[counter][0]}'] = final_count_list[counter][1]
+            item_quantities[f'{final_count_list[counter][0]}'] = float(final_count_list[counter][1])
             counter += 1
+
+        final_product = []
+        counter = 0 
+
+        for keys in current:
+            price = current[keys] * item_quantities[keys]
+            final_product.append(price)
+            counter += 1
+
+        amount = sum(final_product)
 
         self.listOfItems = item_quantities
 
         """Remove this before production"""
         #print(self.listOfItems)
         print(item_quantities)
+        print(item_quantities['Sleeper Drone AI Nexus'])
+        print(current['Sleeper Drone AI Nexus'])
+        print(final_product)
+        print(amount)
 
     """Calculates the appropriate level of tax"""
 
@@ -138,7 +153,7 @@ class ContractCalc(QDialog):
             
             new_price = json_response[counter]['buy']['max']
             current_prices.append(new_price)
-            price_book[f'{blue_book_names[counter]}'] = f'{current_prices[counter]}'
+            price_book[f'{blue_book_names[counter]}'] = float(f'{current_prices[counter]}')
             counter += 1
 
         """Remove before production"""
