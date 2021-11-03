@@ -28,12 +28,15 @@ class ContractCalc(QDialog):
         """Current Blue book prices"""
         self.current = float
 
-        """Final contract amount that will be automatically copied to clipboard"""
+        """Final contract amount pre-tax"""
         self.contract_amount_pre_tax = float
+
+        """Final Contract amount after tax"""
+        self.contract_amount_after_tax = float
 
         """Variable to store the tax level from the current membership level, it is expected that this will always be a
         integer as it will be what will be used to calculate at what tax bracket the contract will be"""
-        self.taxLevel = float
+        self.taxLevel = 0.85
 
         """GUI Representation of the user input area"""
         self.itemsLabel = QLabel('Items: ')
@@ -59,9 +62,6 @@ class ContractCalc(QDialog):
         """Sets GUI layout"""
         self.setLayout(self.layout)
 
-    def calculate_total_price(self):
-
-        pass
 
     """Grabs the user input from items QPlainTextEdit Object once the submit button is clicked"""
 
@@ -91,16 +91,20 @@ class ContractCalc(QDialog):
         counter = 0 
 
         for keys in current:
+
             price = current[keys] * item_quantities[keys]
             final_product.append(price)
             counter += 1
 
         self.contract_amount_pre_tax = sum(final_product)
 
+        self.contract_amount_after_tax = self.contract_amount_pre_tax * float(self.taxLevel)
+
         self.listOfItems = item_quantities
 
         """Remove this before production"""
         print(self.contract_amount_pre_tax)
+        print(self.contract_amount_after_tax)
 
     """Calculates the appropriate level of tax"""
 
