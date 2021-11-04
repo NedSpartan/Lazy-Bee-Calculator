@@ -1,7 +1,7 @@
 
 import sys
 import requests
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QDialog, QLabel, QComboBox, QPushButton, QVBoxLayout, QPlainTextEdit
 
 MEMBER_TIERS = ['Trial Member', 'Full Member', 'Public Guest']
 
@@ -101,6 +101,8 @@ class ContractCalc(QDialog):
         self.contract_amount_after_tax = self.contract_amount_pre_tax * float(self.taxLevel)
 
         self.listOfItems = item_quantities
+
+        self.items.clear()
 
         """Remove this before production"""
         print(self.contract_amount_pre_tax)
